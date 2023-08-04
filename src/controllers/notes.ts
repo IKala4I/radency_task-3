@@ -1,6 +1,7 @@
 import express from 'express'
 import {createNote as addNoteInDB, deleteNoteById, getNoteById, getNotes, updateNoteById} from '../db/notes'
 import CustomResponse from '../helpers/CustomResponse'
+import createStats from '../helpers/createStats'
 
 export const createNote = async (req: express.Request, res: CustomResponse, next: express.NextFunction) => {
     try {
@@ -63,6 +64,19 @@ export const updateNote = async (req: express.Request, res: CustomResponse, next
     } catch (error) {
         res.error = error
         res.status(400)
+    } finally {
+        next()
+    }
+}
+
+export const getStats = async (req: express.Request, res: CustomResponse, next: express.NextFunction) => {
+    try {
+        const notes = await getNotes()
+        res.data = createStats(notes)
+        res.status(200)
+    } catch (error) {
+        res.error = error
+        res.status(404)
     } finally {
         next()
     }
