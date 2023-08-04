@@ -1,5 +1,5 @@
 import express from 'express'
-import {createNoteValid, updateNoteValid} from '../middlewares/users.middleware'
+import {createNoteValid, updateNoteValid} from '../middlewares/notes.middleware'
 import {createNote, deleteNote, getAllNotes, getNote, getStats, updateNote} from '../controllers/notes'
 import {responseMiddleware} from '../middlewares/response.middleware'
 
