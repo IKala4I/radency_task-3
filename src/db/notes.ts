@@ -20,9 +20,7 @@ export const NoteModel = mongoose.model('Note', NoteSchema)
 
 // Note Actions
 export const getNotes = () => NoteModel.find()
-export const getUserByEmail = (email: string) => NoteModel.findOne({email})
-export const getUserBySessionToken = (sessionToken: string) => NoteModel.findOne({'authentication.sessionToken': sessionToken})
 export const getNoteById = (id: string) => NoteModel.findById(id)
 export const createNote = (values: Record<string, any>) => new NoteModel(values).save().then((note) => note.toObject())
 export const deleteNoteById = (id: string) => NoteModel.findOneAndDelete({_id: id})
-export const updateUserById = (id: string, values: Record<string, any>) => NoteModel.findByIdAndUpdate(id, values)
+export const updateNoteById = (id: string, values: Record<string, any>) => NoteModel.findByIdAndUpdate(id, values)

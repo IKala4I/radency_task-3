@@ -1,5 +1,5 @@
 import express from 'express'
-import {createNote as addNoteInDB, deleteNoteById, getNoteById, getNotes} from '../db/notes'
+import {createNote as addNoteInDB, deleteNoteById, getNoteById, getNotes, updateNoteById} from '../db/notes'
 import CustomResponse from '../helpers/CustomResponse'
 
 export const createNote = async (req: express.Request, res: CustomResponse, next: express.NextFunction) => {
@@ -48,6 +48,18 @@ export const getNote = async (req: express.Request, res: CustomResponse, next: e
     try {
         const {id} = req.params
         res.data = await getNoteById(id)
+    } catch (error) {
+        res.error = error
+        res.status(400)
+    } finally {
+        next()
+    }
+}
+
+export const updateNote = async (req: express.Request, res: CustomResponse, next: express.NextFunction) => {
+    try {
+        const {id} = req.params
+        res.data = await updateNoteById(id, res.data)
     } catch (error) {
         res.error = error
         res.status(400)
