@@ -48,7 +48,10 @@ export const updateNoteValid = async (req: express.Request, res: CustomResponse,
             if (typeof archived !== 'boolean')
                 throw new Error('Archived must be true or false')
 
-        res.data = {...req.body, dates}
+        res.data = {
+            ...req.body,
+            ...(typeof content === 'string' ? { dates } : {}),
+        }
         next()
     } catch (error) {
         res.status(400).send(error.message)
